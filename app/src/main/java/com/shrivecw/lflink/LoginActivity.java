@@ -1,0 +1,190 @@
+package com.shrivecw.lflink;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Random;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+public class LoginActivity extends AppCompatActivity {
+
+    private EditText registrationNumber, otpInput;
+    private Button getOtpButton, loginButton;
+    private int generatedOtp;  // OTP to be sent and verified
+
+    // Firestore instance
+    private FirebaseFirestore db;
+
+    @SuppressLint("MissingInflatedId")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        // Initialize Firestore
+        db = FirebaseFirestore.getInstance();
+
+        // Find the views by their IDs
+        registrationNumber = findViewById(R.id.et_registration);
+        otpInput = findViewById(R.id.et_otp);
+        getOtpButton = findViewById(R.id.btn_get_otp);
+        loginButton = findViewById(R.id.btn_login);
+
+        // Set a click listener for the Get OTP button
+        getOtpButton.setOnClickListener(v -> {
+            String regNumber = registrationNumber.getText().toString();
+            if (isValidRegistrationNumber(regNumber)) {
+                String regEmail = regNumber + "@svecw.edu.in";
+                Toast.makeText(LoginActivity.this, regEmail, Toast.LENGTH_LONG).show();
+                otpInput.setVisibility(View.VISIBLE);
+                loginButton.setVisibility(View.VISIBLE);
+                Random random = new Random();
+                generatedOtp = random.nextInt(8999) + 1000;
+                String messageToSend = "Hello " + regNumber + "! Copy and paste below OTP to verify your login process. OTP: " + generatedOtp;
+                new SendMailTask().execute(regEmail, messageToSend);
+            } else {
+                Toast.makeText(LoginActivity.this, "Invalid Registration Number", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Set a click listener for the Login button
+        loginButton.setOnClickListener(v -> {
+            String enteredOtp = otpInput.getText().toString();
+
+            // Validate the OTP
+            if (enteredOtp.isEmpty()) {
+                Toast.makeText(LoginActivity.this, "Please enter OTP", Toast.LENGTH_SHORT).show();
+            } else {
+                if (enteredOtp.equals(String.valueOf(generatedOtp))) {
+                    Toast.makeText(LoginActivity.this, "Valid OTP", Toast.LENGTH_SHORT).show();
+                    storeRegistrationInFirestore(registrationNumber.getText().toString());
+                } else {
+                    Toast.makeText(LoginActivity.this, "Invalid OTP", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    // Method to validate the registration number
+    private boolean isValidRegistrationNumber(String regNum) {
+        if (regNum.length() != 10) {
+            return false;
+        }
+
+        try {
+            // Check first two characters are numbers between 21 and 24
+            int firstTwoDigits = Integer.parseInt(regNum.substring(0, 2));
+            if (firstTwoDigits < 21 || firstTwoDigits > 24) {
+                return false;
+            }
+
+            // Check next four characters are "B01A" (case-insensitive)
+            String nextFour = regNum.substring(2, 6).toUpperCase();
+            if (!"B01A".equals(nextFour)) {
+                return false;
+            }
+
+            // Check last four characters are alphanumeric
+            String lastFour = regNum.substring(6);
+            return lastFour.matches("[a-zA-Z0-9]+");
+
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    // Function to store the registration number in Firestore
+    private void storeRegistrationInFirestore(String regNumber) {
+        // Create a map to store in Firestore
+        Map<String, String> requestData = new HashMap<>();
+        requestData.put("RegNumber", regNumber);
+        requestData.put("email", regNumber + "@svecw.edu.in");
+
+        // Add document to Firestore in the "LostLinkDB" collection
+        db.collection("LostLinkDB")
+                .add(requestData) // Auto-generates a document ID
+
+                .addOnSuccessListener(documentReference -> {
+                    // Get the auto-generated document ID
+                    String autoGeneratedId = documentReference.getId();
+                    Toast.makeText(LoginActivity.this, "Registration stored successfully! ID: " + autoGeneratedId, Toast.LENGTH_SHORT).show();
+
+                    // Navigate to HomePage
+                    Intent intent = new Intent(LoginActivity.this, HomePage.class);
+                    intent.putExtra("registration_number", autoGeneratedId);
+                    startActivity(intent);
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(LoginActivity.this, "Error storing registration", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private class SendMailTask extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            final String username = "22b01a05c5@svecw.edu.in";  // your email
+            final String password = "doss jlhm tbgo ouue";  // your password (consider using a more secure method)
+
+            String recipientEmail = params[0];
+            String messageToSend = params[1];
+
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
+
+            Session session = Session.getInstance(props,
+                    new javax.mail.Authenticator() {
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(username, password);
+                        }
+                    });
+
+            try {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(username));
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+                message.setSubject("OTP for Verification");
+                message.setText(messageToSend);
+
+                Transport.send(message);
+                return true;
+            } catch (MessagingException e) {
+                Log.e("EmailError", "Error occurred: " + e.getMessage(), e);
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                Toast.makeText(LoginActivity.this, "OTP is sent to your email successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+}

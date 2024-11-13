@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "741866863269",
+    "project_id": "lflink-49cfd",
+    "storage_bucket": "lflink-49cfd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741866863269:android:4c12ff53d763d893226b4c",
+        "android_client_info": {
+          "package_name": "com.shrivecw.lflink"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxJ279nUJfGBPPCECQXr_fTO2VKxgP-Jo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

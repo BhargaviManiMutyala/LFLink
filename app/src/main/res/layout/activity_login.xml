@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#9b1f34"
+    android:gravity="center"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".LoginActivity">
+
+    <!-- Registration Number Input Field -->
+    <EditText
+        android:id="@+id/et_registration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Registration Number"
+        android:padding="12dp"
+        android:layout_margin="30dp"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
+        android:layout_centerHorizontal="true"
+        android:inputType="text"
+        android:maxLength="15"
+        android:layout_marginTop="100dp" />
+
+    <!-- Get OTP Button -->
+    <Button
+        android:id="@+id/btn_get_otp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get OTP"
+        android:textSize="18sp"
+        android:backgroundTint="#FFFFFF"
+        android:textColor="#9b1f34"
+        android:layout_below="@id/et_registration"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:padding="10dp" />
+
+    <!-- OTP Input Field (Initially Hidden) -->
+    <EditText
+        android:id="@+id/et_otp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter OTP"
+        android:padding="12dp"
+        android:layout_margin="30dp"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
+        android:layout_below="@id/btn_get_otp"
+        android:layout_centerHorizontal="true"
+        android:inputType="number"
+        android:maxLength="6"
+        android:visibility="gone" />
+
+    <!-- Login Button (Initially Hidden) -->
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textSize="18sp"
+        android:backgroundTint="#FFFFFF"
+        android:textColor="#9b1f34"
+        android:layout_below="@id/et_otp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:padding="10dp"
+        android:visibility="gone" />
+</RelativeLayout>

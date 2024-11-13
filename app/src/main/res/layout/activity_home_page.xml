@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#9b1f34">
+
+
+    <TextView
+        android:id="@+id/tv_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp" />
+
+    <!-- Profile Image and Text -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="30dp">
+
+        <ImageView
+            android:id="@+id/img_profile"
+            android:layout_width="199dp"
+            android:layout_height="205dp"
+            android:contentDescription="Profile Image"
+            android:src="@drawable/circular_back" />
+
+        <TextView
+            android:id="@+id/tv_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
+        app:contentPadding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.382"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <!-- First row of circular buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:weightSum="2"
+                android:layout_marginBottom="20dp">
+
+                <Button
+                    android:id="@+id/btn_action1"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:text="Live Requests"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#9b1f34"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center" />
+
+                <Button
+                    android:id="@+id/btn_action2"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:text="Active Requests"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20dp"
+                    android:backgroundTint="#9b1f34"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+
+            <!-- Second row of circular buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/btn_action3"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:text="History"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20dp"
+                    android:backgroundTint="#9b1f34"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center" />
+
+                <Button
+                    android:id="@+id/btn_action4"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:textSize="20dp"
+                    android:text="My Findings"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#9b1f34"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Horizontal Button (Raise Request) -->
+    <Button
+        android:id="@+id/btn_raise_request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Raise Request"
+        android:backgroundTint="#FFFFFF"
+        android:textColor="#9b1f34"
+        android:padding="12dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp" />
+</LinearLayout>
