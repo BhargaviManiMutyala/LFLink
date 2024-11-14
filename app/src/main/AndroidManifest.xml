@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".HomePage"></activity>
+        <activity android:name=".RaiseRequest"></activity>
     </application>
 
 </manifest>

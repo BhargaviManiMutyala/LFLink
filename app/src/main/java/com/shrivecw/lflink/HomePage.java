@@ -82,10 +82,10 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(HomePage.this, "Raise Request Clicked", Toast.LENGTH_SHORT).show();
-                /*Intent intent = new Intent(HomePage.this, RaiseRequest.class);
+                Intent intent = new Intent(HomePage.this, RaiseRequest.class);
                 intent.putExtra("registration_number", registrationNumber);
                 startActivity(intent);
-                finish();*/
+                finish();
                 // You can add intent here to navigate to another activity or request handling
             }
         });
