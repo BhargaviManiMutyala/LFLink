@@ -78,7 +78,7 @@ public class RaiseRequest extends AppCompatActivity {
                 // Optionally, you can navigate to another activity after submission
                 Intent intent = new Intent(RaiseRequest.this, HomePage.class); // Update with the correct activity
                 startActivity(intent);
-                Toast.makeText(RaiseRequest.this, "Raise Request Clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(RaiseRequest.this, "Raise Request Clicked", Toast.LENGTH_SHORT).show();
 
             } else {
                 Log.w(TAG, "onClick: Invalid input, please fill all fields and select an image");

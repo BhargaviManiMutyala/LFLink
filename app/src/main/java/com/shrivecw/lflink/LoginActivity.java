@@ -145,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(String... params) {
             final String username = "22b01a05c5@svecw.edu.in";  // your email
-            final String password = "doss jlhm tbgo ouue";  // your password (consider using a more secure method)
+            final String password = "SVECW_aditi_2010";  // your password (consider using a more secure method)
 
             String recipientEmail = params[0];
             String messageToSend = params[1];

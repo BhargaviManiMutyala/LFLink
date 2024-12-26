@@ -31,16 +31,17 @@ public class HomePage extends AppCompatActivity {
         action1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Log.d("HomePage", "Action 1 button clicked");
+                //Log.d("HomePage", "Action 1 button clicked");
                 if (registrationNumber != null) {
-                    Log.d("HomePage", "Registration Number: " + registrationNumber);
-                    Intent intent = new Intent(HomePage.this, LiveRequests.class);
-                    intent.putExtra("registration_number", registrationNumber);
-                    startActivity(intent);
+                    Toast.makeText(HomePage.this, "Live Request Clicked", Toast.LENGTH_SHORT).show();
+                    //Log.d("HomePage", "Registration Number: " + registrationNumber);
+//                    Intent intent = new Intent(HomePage.this, LiveRequests.class);
+//                    intent.putExtra("registration_number", registrationNumber);
+//                    startActivity(intent);
                 } else {
                     Log.w("HomePage", "Registration number is null");
                     Toast.makeText(HomePage.this, "Registration number is missing", Toast.LENGTH_SHORT).show();
-                }*/
+                }
             }
         });
 
@@ -49,10 +50,10 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(HomePage.this, "Action 2 Clicked", Toast.LENGTH_SHORT).show();
-                /*Intent intent = new Intent(HomePage.this, MainActivity2.class);
-                intent.putExtra("registration_number", registrationNumber);
-                startActivity(intent);*/
-                //finish();
+//                Intent intent = new Intent(HomePage.this, ActiveRequests.class);
+//                intent.putExtra("registration_number", registrationNumber);
+//                startActivity(intent);
+//                finish();
             }
         });
 
